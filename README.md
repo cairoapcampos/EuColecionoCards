@@ -142,14 +142,12 @@ Cria o usuário `admin` com a senha `Admin@1234` no banco de dados.
 
 ### 4. Iniciar o servidor
 
-A porta padrão é **443** (HTTPS). Como essa porta exige privilégios de root no Linux, use a variável `PORT` para escolher outra:
-
 ```bash
-# Desenvolvimento (porta sem privilégio de root)
-PORT=3443 npm run dev
+# Desenvolvimento (hot-reload na porta 3443)
+npm run dev
 
 # Produção
-PORT=3443 npm start
+npm start
 ```
 
 Acesse: **https://localhost:3443/login**
