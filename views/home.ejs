@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EuColecionoCards</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <%- include('partials/navbar') %>
+
+        <div class="container hero" id="hero">
+            <h1 class="display-5 fw-bold">Bem-vindo ao EuColecionoCards</h1>
+            <p class="lead">Sua Loja Online de Cartas Yu-Gi-Oh!</p>
+            <a href="#produtos" id="ver-cartas-btn" class="btn btn-custom btn-lg mt-3">Ver Cartas</a>
+        </div>
+
+        <div id="loading-overlay">
+            <div class="loading-content">
+                <img src="/img/loading.gif" alt="Carregando...">
+                <p id="loading-text">Carregando...</p>
+            </div>
+        </div>
+
+        <div class="container mt-5" id="produtos">
+            <h2 class="text-center mb-4">Cartas em Destaque</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <% cartas.forEach(function(carta) { %>
+                    <div class="col">
+                        <div class="card h-100" data-card-id="<%= carta.id %>" data-preco="<%= carta.preco %>">
+                            <div class="card-img-wrapper">
+                                <div class="img-container">
+                                    <img src="<%= carta.imagem %>" class="card-img-top" alt="<%= carta.nome %>">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= carta.nome %>
+                                </h5>
+                                <p class="card-text">
+                                    <%= carta.descricao %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+
+        <footer class="bg-dark text-white text-center py-3 mt-auto">
+            <p class="mb-0 small">&copy; <%= new Date().getFullYear() %> EuColecionoCards. Todos os direitos reservados.
+            </p>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/loja.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.logo {
+  max-width: 400px;
+  height: auto;
+}
+
+/* ── Hero ─────────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* ── Botão padrão ─────────────────────────────────────── */
+.btn-custom {
+  background-color: #212529;
+  color: white;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+.btn-custom:hover {
+  background-color: #343a40;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* ── Navbar links ─────────────────────────────────────── */
+.navbar .nav-link {
+  position: relative;
+  transition: color 0.2s;
+}
+.navbar .nav-link:not(.btn):hover {
+  color: #ffc107 !important;
+}
+.navbar .nav-link:not(.btn)::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #ffc107;
+  transition: width 0.3s ease-in-out;
+}
+.navbar .nav-link:not(.btn):hover::after {
+  width: 100%;
+}
+.navbar .nav-link.nav-login:hover i {
+  color: #ffc107;
+}
+.navbar-nav .nav-item .bi {
+  vertical-align: middle;
+}
+
+/* ── Cards de produto ─────────────────────────────────── */
+.card[data-card-id] {
+  cursor: url('/img/cursor-espada.png'), auto;
+}
+.card-body {
+  padding: 8px;
+}
+.card-img-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  padding: 0;
+  padding-top: 25px;
+  position: relative;
+}
+.img-container {
+  position: relative;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.card-img-top {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  margin-bottom: 0;
+}
+.card-img-top:hover {
+  transform: scale(1.05);
+  cursor: url('/img/cursor-espada-hover.png'), auto;
+}
+.card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.card-text {
+  font-size: 0.95rem;
+}
+
+/* ── Coração de favorito ──────────────────────────────── */
+.heart-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 2rem;
+  color: red;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+}
+
+/* ── Badge do carrinho ────────────────────────────────── */
+#cart-count {
+  font-size: 0.75rem;
+  padding: 4px 6px;
+  min-width: 20px;
+  height: 20px;
+  line-height: 1;
+}
+
+/* ── Loading overlay ──────────────────────────────────── */
+#loading-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+#loading-overlay img {
+  width: auto;
+  height: auto;
+}
+.loading-content {
+  text-align: center;
+  color: white;
+}
+#loading-text {
+  font-size: 1.5rem;
+  margin-top: 15px;
+  color: white;
+}
+
+.carrinho-thumb {
+  width: 160px !important;
+  max-width: 160px !important;
+  height: auto !important;
+}

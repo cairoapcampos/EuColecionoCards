@@ -1,0 +1,31 @@
+# Dependências
+node_modules/
+
+# Banco de dados (contém dados de usuários e hashes de senha)
+*.db
+*.db-shm
+*.db-wal
+
+# Certificados TLS (chave privada não deve ser exposta)
+certs/
+*.pem
+*.key
+*.crt
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

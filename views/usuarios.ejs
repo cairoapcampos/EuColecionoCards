@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gerenciar Usuários — EuColecionoCards</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <%- include('partials/navbar') %>
+
+        <main class="container flex-grow-1 py-5">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <i class="bi bi-people-fill display-5 text-warning"></i>
+                <div>
+                    <h1 class="fw-bold mb-0">Gerenciar Usuários</h1>
+                    <span class="text-muted small">
+                        <%= users.length %> usuário(s) cadastrado(s)
+                    </span>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Usuário</th>
+                                <th scope="col">Papel</th>
+                                <th scope="col">Cadastrado em</th>
+                                <th scope="col" class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach(u=> { %>
+                                <tr>
+                                    <td class="text-muted small">
+                                        <%= u.id %>
+                                    </td>
+                                    <td>
+                                        <i class="bi bi-person-circle me-1 text-secondary"></i>
+                                        <strong>
+                                            <%= u.username %>
+                                        </strong>
+                                        <% if (u.username===username) { %>
+                                            <span class="badge bg-info text-dark ms-1">você</span>
+                                            <% } %>
+                                    </td>
+                                    <td>
+                                        <% if (u.role==='admin' ) { %>
+                                            <span class="badge bg-warning text-dark">
+                                                <i class="bi bi-shield-fill me-1"></i>administrador
+                                            </span>
+                                            <% } else { %>
+                                                <span class="badge bg-secondary">
+                                                    <i class="bi bi-person me-1"></i>usuário comum
+                                                </span>
+                                                <% } %>
+                                    </td>
+                                    <td class="text-muted small">
+                                        <%= new Date(u.created_at).toLocaleString('pt-BR') %>
+                                    </td>
+                                    <td class="text-center">
+                                        <% const protegido=u.username==='admin' || u.username===username; %>
+                                            <% if (!protegido) { %>
+                                                <form action="/usuarios/<%= u.id %>/deletar" method="POST"
+                                                    onsubmit="return confirm('Tem certeza que deseja excluir o usuário \'<%= u.username %>\'?')">
+                                                    <input type="hidden" name="_csrf" value="<%= csrf %>">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                        <i class="bi bi-trash me-1"></i>Excluir
+                                                    </button>
+                                                </form>
+                                                <% } else { %>
+                                                    <span class="text-muted small">—</span>
+                                                    <% } %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                                    <% if (users.length===0) { %>
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted py-4">Nenhum usuário
+                                                cadastrado.</td>
+                                        </tr>
+                                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <a href="/administradores" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Voltar
+                </a>
+                <a href="/cadastro" class="btn btn-custom">
+                    <i class="bi bi-person-plus me-2"></i>Cadastrar novo usuário
+                </a>
+            </div>
+        </main>
+
+        <footer class="bg-dark text-white text-center py-3 mt-auto">
+            <p class="mb-0 small">&copy; <%= new Date().getFullYear() %> EuColecionoCards. Todos os direitos reservados.
+            </p>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
