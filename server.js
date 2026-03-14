@@ -177,6 +177,47 @@ app.get('/usuario', requireUser, (req, res) => {
     });
 });
 
+// GET /alterar-senha — qualquer usuário autenticado
+app.get('/alterar-senha', requireAuth, (req, res) => {
+    res.render('alterar-senha', {
+        csrf: generateCsrfToken(req),
+        username: req.session.username,
+        role: req.session.role,
+        erro: null,
+        sucesso: null,
+    });
+});
+
+// POST /alterar-senha — qualquer usuário autenticado
+app.post('/alterar-senha', requireAuth, csrfMiddleware, async (req, res) => {
+    const render = (erro, sucesso) =>
+        res.render('alterar-senha', { csrf: generateCsrfToken(req), username: req.session.username, role: req.session.role, erro, sucesso });
+
+    try {
+        const senhaAtual = sanitize(req.body.senha_atual, 128);
+        const novaSenha = sanitize(req.body.nova_senha, 128);
+        const confirmacao = sanitize(req.body.confirmacao, 128);
+
+        if (!senhaAtual || !novaSenha || !confirmacao)
+            return render('Preencha todos os campos.', null);
+        if (novaSenha !== confirmacao)
+            return render('A nova senha e a confirmação não coincidem.', null);
+        if (novaSenha.length < 8)
+            return render('A nova senha deve ter no mínimo 8 caracteres.', null);
+
+        const user = stmts.findByUsername.get(req.session.username);
+        const valid = await verifyPassword(user.password_hash, senhaAtual);
+        if (!valid) return render('Senha atual incorreta.', null);
+
+        const hash = await hashPassword(novaSenha);
+        stmts.updatePassword.run(hash, req.session.userId);
+
+        return render(null, 'Senha alterada com sucesso!');
+    } catch {
+        return render('Erro ao alterar senha.', null);
+    }
+});
+
 // GET /usuarios — apenas administradores: lista todos os usuários
 app.get('/usuarios', requireAdmin, (req, res) => {
     const users = stmts.listUsers.all();

@@ -37,6 +37,7 @@ EuColecionoCards/
     ├── administradores.ejs← /administradores   (somente admin)
     ├── usuarios.ejs       ← /usuarios          (somente admin — gerencia usuários)
     ├── usuario.ejs        ← /usuario           (somente usuário comum — minha área)
+    ├── alterar-senha.ejs  ← /alterar-senha     (qualquer usuário autenticado)
     └── error.ejs
 ```
 
@@ -55,6 +56,7 @@ EuColecionoCards/
 | `/cadastro` | Somente administradores autenticados |
 | `/usuarios` | Somente administradores autenticados (listagem e exclusão de usuários) |
 | `/usuario` | Somente usuários comuns autenticados (minha área) |
+| `/alterar-senha` | Qualquer usuário autenticado (admin ou comum) |
 
 Ao clicar em "Finalizar Compra" no carrinho, o usuário é redirecionado para `/checkout`. Se não estiver autenticado, é enviado para `/login` e após o login retorna automaticamente para `/checkout`.
 
@@ -136,7 +138,7 @@ npm run seed
 ```
 
 Cria o usuário `admin` com a senha `Admin@1234` no banco de dados.
-> Altere a senha após o primeiro login cadastrando um novo admin via `/cadastro`.
+> Altere a senha após o primeiro login acessando `/alterar-senha`.
 
 ### 4. Iniciar o servidor
 

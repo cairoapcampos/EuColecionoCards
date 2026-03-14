@@ -27,6 +27,7 @@ const stmts = {
   createUser: db.prepare('INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)'),
   listUsers: db.prepare('SELECT id, username, role, created_at FROM users ORDER BY created_at DESC'),
   deleteUser: db.prepare("DELETE FROM users WHERE id = ? AND username != 'admin'"),
+  updatePassword: db.prepare('UPDATE users SET password_hash = ? WHERE id = ?'),
 };
 
 module.exports = { db, stmts };
